@@ -34,7 +34,6 @@ module.exports = {
     Event.find({})
         .then((allEvents) => {
             res.json(allEvents);
-            console.log("Find events. All good, so far.")
         })
         .catch((err) => {
             console.log(err, "Error getting events from database.");

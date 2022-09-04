@@ -14,7 +14,7 @@ const EventSchema = new mongoose.Schema({
             'Details are required.'
         ]
     },
-    file: {
+    image: {
         type: String
     },
     createdBy:{

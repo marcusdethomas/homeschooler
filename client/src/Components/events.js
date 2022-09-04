@@ -35,6 +35,14 @@ const EventList = (props) => {
             })
             .catch(err => console.log(err))
     }
+
+    const deleteEvent = (eventId) => {
+        axios.delete(`http://localhost:8000/api/events/${eventId}`)
+            .then(res => {
+                navigate("/events");
+            })
+            .catch(err => console.log(err))
+    }
     return (
         <div>
             <Container maxWidth="lg">
@@ -70,6 +78,8 @@ const EventList = (props) => {
                                     </Link>
                                     <Link to={`/events/edit/${eventList._id}`}>
                                     <Button variant="contained" sx={{m:2}}>Edit</Button>
+                                    <Button variant="contained" sx={{m:2}}  
+                                    onClick={(e)=>{deleteEvent(eventList._id)}}>Delete Entry</Button>
                                     </Link>
                                 </TableCell>
                             </TableRow>

@@ -13,20 +13,20 @@ import Link from '@mui/material/Link';
 
 const NewEvent = (props) => {
     const navigate = useNavigate();
-    const[title, setTitle] = useState("");
-    const[details, setDetails] = useState("");
+    const[title, setTitle] = useState("Testing Images");
+    const[details, setDetails] = useState("This will eventually work.");
     const[image, setImage] = useState("");
     const[errors, setErrors] = useState("");
 
-    const formData = new FormData()
-    formData.append("title", title);
-    formData.append("details", details);
-    formData.append("image", image);
     
     const onSubmitHandler = (e) =>{
         e.preventDefault();
+        const formData = new FormData()
+        formData.append("title", title);
+        formData.append("details", details);
+        formData.append("image", image);
+        console.log(image);
         axios.post("http://localhost:8000/api/events",formData,{
-            
         })
         .then((res)=>{
             console.log("Event added: ", res);
@@ -73,7 +73,7 @@ const NewEvent = (props) => {
                 <CardContent>
                 <Button variant="contained" 
                         component="label"  
-                        size="large" disabled>
+                        size="large">
                 <input id='image' 
                 accept="image/*" 
                 name="image"
