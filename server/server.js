@@ -25,13 +25,8 @@ app.use(cors({
     credentials: true,
     origin: process.env.Client_URL
 }));
-app.use(
-    cookieSession({
-        name: "homeschooler",
-        secret: "ThisCookieIsASecret", 
-        httpOnly: true
-    })
-);
+
+
 
 require('./routes/hs.routes')(app);
 require('./config/hs.config');

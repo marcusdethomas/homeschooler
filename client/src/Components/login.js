@@ -19,7 +19,8 @@ const Login = (props) => {
         axios.post("http://localhost:8000/api/login",{
             password,
             email
-        })
+        },
+        )
         .then((res)=>{
             //console.log("User logged in: ", res);
             console.log(res);
