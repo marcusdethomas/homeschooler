@@ -20,7 +20,7 @@ module.exports = (app) =>{
     });
     // Events
     app.get("/api/events/:_id", events.getSingle);
-    app.get("/api/events", events.getAll);
+    app.get("/api/events",events.getAll);
     app.post("/api/createEvent");
     app.post("/api/events", upload.single('image'), events.create);
     app.delete("/api/events/:_id", events.delete); 

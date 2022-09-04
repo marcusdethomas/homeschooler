@@ -29,7 +29,6 @@ let newUser = new User(body);
     }
 }
 
-
 const login = async (req, res) => {
     const {body} = req;
 
@@ -62,13 +61,13 @@ else{
     res.cookie("usertoken", 
         jwt.sign({
             user_id: userQuery._id,
-            //firstName: userQuery.firstName,
-            //lastName: userQuery.lastName
+            firstName: userQuery.firstName,
+            lastName: userQuery.lastName
             }, 
             process.env.SECRET_KEY), 
             {
             httpOnly: true,
-            expires: new Date(Date.now() + 9000000),
+            expires: new Date(Date.now() + 90000),
             })
             .json({msg: "Successful Login!",
             user_id: userQuery._id ,
