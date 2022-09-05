@@ -26,8 +26,8 @@ const NewEvent = (props) => {
         formData.append("details", details);
         formData.append("image", image);
         console.log(image);
-        axios.post("http://localhost:8000/api/events",formData,{
-        })
+        axios.post("http://localhost:8000/api/events",formData,
+        {withCredentials:true})
         .then((res)=>{
             console.log("Event added: ", res);
             navigate("/events");

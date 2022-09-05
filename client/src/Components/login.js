@@ -17,9 +17,9 @@ const Login = (props) => {
     const onSubmitHandler = (e) =>{
         e.preventDefault();
         axios.post("http://localhost:8000/api/login",{
-            password,
-            email
-        },
+            email,
+            password
+        },{withCredentials:true},
         )
         .then((res)=>{
             //console.log("User logged in: ", res);

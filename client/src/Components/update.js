@@ -19,7 +19,8 @@ const UpdateAuthor = (props) =>{
     const [errors, setErrors] = useState([]);
 
     useEffect(()=>{
-        axios.get(`http://localhost:8000/api/events/${id}`)
+        axios.get(`http://localhost:8000/api/events/${id}`,
+        {withCredentials:true})
         .then((res)=>{
             setTitle(res.data.title);
             setDetails(res.data.details);

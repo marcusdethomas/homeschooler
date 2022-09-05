@@ -14,13 +14,13 @@ app.use(cookieParser({credentials: true, origin: 'http://localhost:3000'}));
 app.use(require('body-parser').urlencoded({extended: true}));   
 app.use(express.urlencoded({ extended: true })); 
 
-//app.set("view engine", "ejs");
-/*
+app.set("view engine", "ejs");
+
 var token = jwt.sign({id: "user._id"}, process.env.SECRET_KEY);
 console.log("Token:", token);
 
 const userToken = jwt.verify(token, process.env.SECRET_KEY);
-*/
+
 app.use(cors({ 
     credentials: true,
     origin: process.env.Client_URL

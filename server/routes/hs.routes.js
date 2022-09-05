@@ -1,3 +1,4 @@
+const { authenticate } = require('../config/auth.config');
 const { hashSync } = require("bcrypt");
 const multer = require("multer");
 const fileStorageEngine = multer.diskStorage({
@@ -10,7 +11,6 @@ const fileStorageEngine = multer.diskStorage({
 }) 
 var upload = multer({storage: fileStorageEngine});
 
-const { authenticate } = require('../config/auth.config');
 const{getUser, login, logout, register} = require("../controller/user.controller");
 const events = require("../controller/event.controller");
 module.exports = (app) =>{
@@ -20,11 +20,11 @@ module.exports = (app) =>{
     });
     // Events
     app.get("/api/events/:_id", events.getSingle);
-    app.get("/api/events",events.getAll);
-    app.post("/api/createEvent");
+    app.get("/api/events",authenticate,events.getAll);
+    app.post("/api/createEvent",authenticate);
     app.post("/api/events", upload.single('image'), events.create);
-    app.delete("/api/events/:_id", events.delete); 
-    app.put("/api/events/:_id", events.update);
+    app.delete("/api/events/:_id",authenticate, events.delete); 
+    app.put("/api/events/:_id",authenticate, events.update);
 
     // Users
     app.post("/api/newuser", register);

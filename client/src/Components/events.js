@@ -18,7 +18,7 @@ const EventList = (props) => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get("http://localhost:8000/api/events")
+        axios.get("http://localhost:8000/api/events",{withCredentials:true})
         .then((res)=>{
             //console.log("Response: ",res.data);
             setEventList(res.data);
