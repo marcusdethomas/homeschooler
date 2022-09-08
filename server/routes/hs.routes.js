@@ -3,7 +3,7 @@ const { hashSync } = require("bcrypt");
 const multer = require("multer");
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) =>{
-        cb(null, './images')
+        cb(null, './images/')
     },
     filename:(req, file, cb) => {
         cb(null, Date.now() + '--' + file.originalname)
@@ -18,20 +18,13 @@ module.exports = (app) =>{
         res.json({msg:"Lets get it started!"})
         console.log('Yo yo.')
     });
-    // Events
+
     app.get("/api/events/:_id", events.getSingle);
     app.get("/api/events",authenticate,events.getAll);
     app.post("/api/createEvent",authenticate);
-    //app.post("/api/events", authenticate, upload.single('image'), events.create);
     app.delete("/api/events/:_id",authenticate,events.delete, ); 
     app.put("/api/events/:_id",authenticate, events.update);
-
-    // Users
-    app.post("/api/newuser", register);
-    app.post("/api/login", login);
-    app.post("/api/logout", logout);
-    app.get("/api/users/:_id", getUser );
-    app.post('/api/events', authenticate, upload.single('image'),events.create, (req, res) => {
+    app.post('/api/events', authenticate, upload.array('image'),events.create, (req, res) => {
         const imagePath = req.file
         const description = req.body.description
         console.log(req.file, req.body)

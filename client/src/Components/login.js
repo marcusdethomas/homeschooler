@@ -13,7 +13,7 @@ const Login = (props) => {
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[errors, setErrors] = useState("");
-
+    const[user, setUser] = useState(""); // Doesn't work
     const onSubmitHandler = (e) =>{
         e.preventDefault();
         axios.post("http://localhost:8000/api/login",{
@@ -22,8 +22,11 @@ const Login = (props) => {
         },{withCredentials:true},
         )
         .then((res)=>{
-            //console.log("User logged in: ", res);
-            console.log(res);
+            //console.log("User logged in: ", res.data.firstName);
+            setUser(res.data.firstName);
+            console.log(res.data.firstName);
+            console.log(user);  // Doesn't work
+            //console.log(res);
             navigate("/events");
         })
         .catch(err=>{

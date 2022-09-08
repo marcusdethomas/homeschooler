@@ -14,13 +14,14 @@ import moment from 'moment';
 
 const EventList = (props) => {
     const {eventList, setEventList} = (props);
+    const {userName, setUserName} = (props);
     const createdAt = moment(eventList.createdAt).format('MMMM Do, YYYY'); 
     const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get("http://localhost:8000/api/events",{withCredentials:true})
         .then((res)=>{
-            //console.log("Response: ",res.data);
+            console.log("Response: ",res);
             setEventList(res.data);
 	})
         .catch((err)=>{
@@ -47,6 +48,7 @@ const EventList = (props) => {
         <div>
             <Container maxWidth="lg">
             <h1>Home Schooler</h1>
+            <h2>{userName}</h2>
             <Button href='/new'  size="large" variant="contained" sx={{m:2}}>Add Entry
             </Button>
             
@@ -62,6 +64,7 @@ const EventList = (props) => {
                                         backgroundColor: "lightgrey"}} >
                                         <TableCell>Title</TableCell>
                                         <TableCell>Date</TableCell>
+                                        <TableCell>Tag</TableCell>
                                         <TableCell align="right" colSpan={2}>Actions</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -72,6 +75,7 @@ const EventList = (props) => {
                             <TableRow>
                                 <TableCell style={{width:'25%'}}> {eventList.title}</TableCell>
                                 <TableCell style={{width:'25%'}}> {createdAt} </TableCell>
+                                <TableCell style={{width:'25%'}}> {eventList.tag} </TableCell>
                                 <TableCell style={{minWidth:500}} align="right" >
                                     <Link to={`/events/${eventList._id}`}>
                                     <Button variant="contained">Details</Button>

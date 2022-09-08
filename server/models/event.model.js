@@ -14,12 +14,21 @@ const EventSchema = new mongoose.Schema({
             'Details are required.'
         ]
     },
+    tag:{
+        type:String,
+        required: [
+            true,
+            'Tag is required'
+        ]
+    },
     image: {
         type: String
     },
+    imageLocation:
+        [],
+    // Still have to work on this
     createdBy:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        type:String
     },
     },
     {timestamps: true}

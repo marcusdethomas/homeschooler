@@ -4,6 +4,8 @@ import {useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { Card} from '@mui/material';
 import CardContent from '@mui/material/CardContent';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 
 //import UploadIcon from '@mui/icons-material/Upload';
@@ -16,14 +18,21 @@ const NewEvent = (props) => {
     const navigate = useNavigate();
     const[title, setTitle] = useState("Testing Images");
     const[details, setDetails] = useState("This will eventually work.");
+    const[tag, setTag] = useState("");
     const[image, setImage] = useState("");
     const[errors, setErrors] = useState("");
+    
+    
+const handleChange = (e) => {
+setTag(e.target.value);
+};
 
     const onSubmitHandler = (e) =>{
         e.preventDefault();
         const formData = new FormData()
         formData.append("title", title);
         formData.append("details", details);
+        formData.append("tag", tag);
         formData.append("image", image);
         console.log(image);
         axios.post("http://localhost:8000/api/events",formData,
@@ -72,7 +81,30 @@ const NewEvent = (props) => {
                         </span>
                         </div>
                 </CardContent>
+                <CardContent>
+                <div className="input-group mb-4">
+                        <span className="input-group-text">
+        
+            <Select
+                style={{minWidth:200}}
+                labelId="demo-simple-select-helper-label"
+                id="tag"
+                value={tag}
+                label="Tag"
+                variant='outlined'
+                onChange={handleChange}
+                >
+                <MenuItem value="">------------</MenuItem>
+                <MenuItem value={'Art'}>Art</MenuItem>
+                <MenuItem value={'Math'}>Math</MenuItem>
+                <MenuItem value={'Physical Education'}>Physical Education</MenuItem>
+                <MenuItem value={'Science'}>Science</MenuItem>
+            </Select>
 
+                        {errors.title ? <Alert severity="error"><p>{errors.tag.message}</p></Alert> : null}
+                        </span>
+                        </div>
+                </CardContent>
                 <label>Upload Images</label>
                 <CardContent>
                 <Button variant="contained" 
@@ -84,6 +116,7 @@ const NewEvent = (props) => {
                 name="image"
                 type="file"
                 onChange={(e)=>setImage(e.target.files[0])}
+                multiple
                 />
                 </Button>
                 </CardContent>
