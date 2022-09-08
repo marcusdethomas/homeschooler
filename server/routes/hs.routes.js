@@ -9,7 +9,7 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, Date.now() + '--' + file.originalname)
     }
 }) 
-var upload = multer({storage: fileStorageEngine});
+const upload = multer({storage: fileStorageEngine});
 
 const{getUser, login, logout, register} = require("../controller/user.controller");
 const events = require("../controller/event.controller");
@@ -22,8 +22,8 @@ module.exports = (app) =>{
     app.get("/api/events/:_id", events.getSingle);
     app.get("/api/events",authenticate,events.getAll);
     app.post("/api/createEvent",authenticate);
-    app.post("/api/events", upload.single('image'), events.create);
-    app.delete("/api/events/:_id",authenticate, events.delete); 
+    //app.post("/api/events", authenticate, upload.single('image'), events.create);
+    app.delete("/api/events/:_id",authenticate,events.delete, ); 
     app.put("/api/events/:_id",authenticate, events.update);
 
     // Users
@@ -31,14 +31,11 @@ module.exports = (app) =>{
     app.post("/api/login", login);
     app.post("/api/logout", logout);
     app.get("/api/users/:_id", getUser );
-    /*
-    app.post('/api/events', upload.single('image'),  (req, res) => {
-        const imagePath = req.file.path
+    app.post('/api/events', authenticate, upload.single('image'),events.create, (req, res) => {
+        const imagePath = req.file
         const description = req.body.description
-        events.create;
-        console.log("Request file: ", req.file);
-        console.log(description, imagePath);
+        console.log(req.file, req.body)
         res.send({description, imagePath});
     })
-    */
+    
 }

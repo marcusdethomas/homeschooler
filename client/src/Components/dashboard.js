@@ -37,7 +37,6 @@ const handleLogout = () =>{
     .catch((err) => console.log(err))
     }
 
-
     return(
     <Container maxWidth="lg">
         <div className='justify-content-center'>

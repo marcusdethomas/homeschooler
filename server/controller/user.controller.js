@@ -67,7 +67,7 @@ else{
             process.env.SECRET_KEY), 
             {
             httpOnly: true,
-            expires: new Date(Date.now() + 90000),
+            expires: new Date(Date.now() + 90000000),
             })
             .json({msg: "Successful Login!",
             user_id: userQuery._id ,

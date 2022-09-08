@@ -1,10 +1,11 @@
-import React, {useState } from 'react'
+import React, {useState} from 'react'
 import axios from 'axios';
 import {useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { Card} from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+
 //import UploadIcon from '@mui/icons-material/Upload';
 import Alert from '@mui/material/Alert';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
@@ -18,7 +19,6 @@ const NewEvent = (props) => {
     const[image, setImage] = useState("");
     const[errors, setErrors] = useState("");
 
-    
     const onSubmitHandler = (e) =>{
         e.preventDefault();
         const formData = new FormData()
@@ -27,7 +27,11 @@ const NewEvent = (props) => {
         formData.append("image", image);
         console.log(image);
         axios.post("http://localhost:8000/api/events",formData,
-        {withCredentials:true})
+        {withCredentials:true},
+        {
+            headers: {
+            "Content-Type": "multipart/form-data",
+            }})
         .then((res)=>{
             console.log("Event added: ", res);
             navigate("/events");
@@ -74,12 +78,13 @@ const NewEvent = (props) => {
                 <Button variant="contained" 
                         component="label"  
                         size="large">
-                <input id='image' 
+                <input 
+                id='image' 
                 accept="image/*" 
                 name="image"
                 type="file"
-                value={image} 
-                onChange={(e)=>setImage(e.target.value)}/>
+                onChange={(e)=>setImage(e.target.files[0])}
+                />
                 </Button>
                 </CardContent>
                 <Button type='submit-input'>Add Event</Button>

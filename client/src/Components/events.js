@@ -37,7 +37,7 @@ const EventList = (props) => {
     }
 
     const deleteEvent = (eventId) => {
-        axios.delete(`http://localhost:8000/api/events/${eventId}`)
+        axios.delete(`http://localhost:8000/api/events/${eventId}`,{withCredentials:true})
             .then(res => {
                 navigate("/events");
             })
