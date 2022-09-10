@@ -39,7 +39,12 @@ const SingleEntry = (props) => {
             <Link to={`/events`}>Return to Homepage</Link>
             <h2>{event.title}</h2>
             <Card sx={{ minWidth: 275, minHeight:400}} variant="outlined">
-            <CardContent>{event.details}</CardContent>
+                <Card sx={{ minWidth: 275, minHeight:400}} variant="outlined">
+                <CardContent>{event.details}</CardContent>
+            </Card>
+            <Card sx={{ minWidth: 275, minHeight:25}} variant="outlined">
+                <CardContent>Subject: {event.tag}</CardContent>
+            </Card>    
             <CardContent>Created At: {createdAt }</CardContent>
             <CardContent>Updated At: {updatedAt }</CardContent>
             <CardContent>{event.imageLocation}</CardContent>

@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -14,6 +13,14 @@ app.use(require('body-parser').urlencoded({extended: true}));
 app.use(express.urlencoded({ extended: true })); 
 app.set("view engine", "ejs");
 
+require('./routes/hs.routes')(app);
+require('./routes/user.routes')(app);
+require('./config/hs.config')
+require('./models/event.model');
+require('./models/user.model');
+require('./controller/event.controller');
+require('./controller/user.controller');
+
 var token = jwt.sign({id: "user._id"}, process.env.SECRET_KEY);
 console.log("Token:", token);
 
@@ -22,13 +29,6 @@ app.use(cors({
     origin: process.env.Client_URL
 }));
 
-require('./routes/hs.routes')(app);
-require('./routes/user.routes')(app);
-require('./config/hs.config')
-require('./models/event.model');
-require('./models/user.model');
-require('./controller/event.controller');
-require('./controller/user.controller');
 
 app.listen(process.env.PORT, () =>{
     console.log('Up and running on port: ', process.env.PORT)

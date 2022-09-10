@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
-
+import image from '../Backgrounds/beautiful-snowflakes-wallpapers.jpg'
 const EventList = (props) => {
     const {eventList, setEventList} = (props);
     const {userName, setUserName} = (props);
@@ -45,9 +45,11 @@ const EventList = (props) => {
             .catch(err => console.log(err))
     }
     return (
-        <div>
-            <Container maxWidth="lg">
-            <h1>Home Schooler</h1>
+        <div style={{ backgroundImage:`url(${image})`,backgroundRepeat:"repeat", backgroundSize:"cover", minHeight:700}}>
+            <Container maxWidth="lg" style={{
+            
+            paddingTop: "22px"
+            }}>
             <h2>{userName}</h2>
             <Button href='/new'  size="large" variant="contained" sx={{m:2}}>Add Entry
             </Button>
@@ -61,7 +63,7 @@ const EventList = (props) => {
                     <Table>
                                 <TableHead>
                                     <TableRow sx={{padding: "0px 0px",
-                                        backgroundColor: "lightgrey"}} >
+                                        backgroundColor: "lightblue"}} >
                                         <TableCell>Title</TableCell>
                                         <TableCell>Date</TableCell>
                                         <TableCell>Tag</TableCell>

@@ -1,5 +1,5 @@
+const events = require("../controller/event.controller");
 const { authenticate } = require('../config/auth.config');
-const { hashSync } = require("bcrypt");
 const multer = require("multer");
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) =>{
@@ -11,8 +11,6 @@ const fileStorageEngine = multer.diskStorage({
 }) 
 const upload = multer({storage: fileStorageEngine});
 
-const{getUser, login, logout, register} = require("../controller/user.controller");
-const events = require("../controller/event.controller");
 module.exports = (app) =>{
     app.get("/api/healthcheck",(req, res) => {
         res.json({msg:"Lets get it started!"})

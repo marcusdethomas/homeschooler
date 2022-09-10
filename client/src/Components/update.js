@@ -9,14 +9,20 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 const UpdateAuthor = (props) =>{  
     const[title, setTitle] = useState("");
     const[details, setDetails] = useState("");
+    const[tag, setTag] = useState("");
     const[image, setImage] = useState("");
     const {id} = useParams();
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
+
+    const handleChange = (e) => {
+        setTag(e.target.value);
+        };
 
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/events/${id}`,
@@ -24,6 +30,7 @@ const UpdateAuthor = (props) =>{
         .then((res)=>{
             setTitle(res.data.title);
             setDetails(res.data.details);
+            setTag(res.data.tag)
         },[])
         .catch((err)=>{
             console.log(err);
@@ -35,7 +42,9 @@ const UpdateAuthor = (props) =>{
         axios.put(`http://localhost:8000/api/events/${id}`,{
             title, 
             details,
-        })
+            tag
+        },
+        {withCredentials:true})
         .then((res)=>{
             console.log(res.data);
             navigate("/events");
@@ -81,6 +90,34 @@ const UpdateAuthor = (props) =>{
                         </div>
                 </CardContent>
 
+
+                <CardContent>
+                <div className="input-group mb-4">
+                        <span className="input-group-text">
+        
+            <Select
+                style={{minWidth:200}}
+                labelId="demo-simple-select-helper-label"
+                id="tag"
+                value={tag}
+                label="Tag"
+                variant='outlined'
+                onChange={handleChange}
+                >
+                <MenuItem value="">------------</MenuItem>
+                <MenuItem value={'Art'}>Art</MenuItem>
+                <MenuItem value={'Astrology'}>Astrology</MenuItem>
+                <MenuItem value={'Home Economics'}>Home Economics</MenuItem>
+                <MenuItem value={'Geography'}>Geography</MenuItem>
+                <MenuItem value={'Math'}>Math</MenuItem>
+                <MenuItem value={'Physical Education'}>Physical Education</MenuItem>
+                <MenuItem value={'Science'}>Science</MenuItem>
+            </Select>
+
+                        {errors.title ? <Alert severity="error"><p>{errors.tag.message}</p></Alert> : null}
+                        </span>
+                        </div>
+                </CardContent>
                 <label>Upload Images</label>
                 <CardContent>
                 <Button variant="contained" 
